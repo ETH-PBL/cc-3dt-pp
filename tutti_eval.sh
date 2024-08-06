@@ -7,9 +7,6 @@ if ! type conda > /dev/null; then
   exit 1
 fi
 
-# Set default radar config file path
-DEFAULT_CONFIG="/root/cc3dt/vis4d/data/nuscenes/radar_detect_sweep_num2_fullnusc.json"
-
 # Check for the minimum number of arguments
 if [ "$#" -lt 1 ]; then
   echo "Usage: $0 <dataset-type> [radar-config-file]"
@@ -24,24 +21,26 @@ RADAR_CONFIG="${2:-$DEFAULT_CONFIG}"
 
 # Choose the appropriate configuration file based on the dataset type
 if [ "$DATASET_TYPE" = "mini" ]; then
-  CONFIG_FILE="vis4d/zoo/cc_3dt/cr3dt_kf3d_nusc_mini.py"
-  WORK_DIR="vis4d/vis4d-workspace/cr3dt_kf3d_nusc_mini"
+  CONFIG_FILE="vis4d/zoo/cc_3dt/cc_3dt_pp_kf3d_nusc_mini.py"
+  WORK_DIR="vis4d-workspace/cc_3dt_pp_kf3d_nusc_mini"
+elif [ "$DATASET_TYPE" = "trainval" ]; then
+  CONFIG_FILE="vis4d/zoo/cc_3dt/cc_3dt_pp_kf3d_nusc.py"
+  WORK_DIR="vis4d-workspace/cc_3dt_pp_kf3d_nusc"
+elif [ "$DATASET_TYPE" = "test" ]; then
+  CONFIG_FILE="vis4d/zoo/cc_3dt/cc_3dt_pp_kf3d_nusc_test.py"
+  WORK_DIR="vis4d-workspace/cc_3dt_pp_kf3d_nusc_test"
 else
-  CONFIG_FILE="vis4d/zoo/cc_3dt/cr3dt_kf3d_nusc.py"
-  WORK_DIR="vis4d/vis4d-workspace/cr3dt_kf3d_nusc"
+  echo "Invalid dataset type. Please choose from 'mini', 'trainval', or 'test'."
+  exit 1
 fi
-
-# Navigate to the vis4d directory
-cd vis4d || exit
 
 # Activate the cc3dt Conda environment
 source activate cc3dt
 
-# Execute the vis4d-pl test command and extract the output directory
-vis4d-pl test --config "$CONFIG_FILE" --gpus 1 --ckpt /root/cc3dt/vis4d/data/nuscenes/cc_3dt_frcnn_r101_fpn_24e_nusc_f24f84.pt --config.pure_detection "$RADAR_CONFIG"
+# Execute the vis4d.pl test command and extract the output directory
+python -m vis4d.pl test --config "$CONFIG_FILE" --gpus 1 --ckpt vis4d/data/nuscenes_mini/cc_3dt_frcnn_r101_fpn_24e_nusc_f24f84.pt --config.pure_detection "$RADAR_CONFIG"
 
 # Get the newest directory
-cd .. || exit
 cd "$WORK_DIR" || exit
 NEWEST_DIR=$(ls -td -- */ | head -n 1 | cut -d'/' -f1)
 
@@ -57,11 +56,7 @@ FULL_PATH="$WORK_DIR/$NEWEST_DIR"
 # Navigate back to the initial directory
 cd /root/cc3dt || exit
 
-conda deactivate
-# Activate the cc3dt_vis4d Conda environment for evaluation
-source activate cc3dt_track
-
 echo $FULL_PATH
 
 # Execute the eval_nusc.sh script with the dynamically determined timestamp and dataset type
-bash eval_nusc.sh "${FULL_PATH}/" "$DATASET_TYPE"
+bash eval_nusc.sh "${FULL_PATH}" "$DATASET_TYPE"

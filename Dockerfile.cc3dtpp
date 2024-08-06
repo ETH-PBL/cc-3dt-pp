@@ -27,4 +27,4 @@ RUN . ~/.bashrc && conda activate cc3dt && pip install torch==2.1.2 torchvision=
 RUN git clone https://github.com/SysCV/vis4d_cuda_ops.git && cd vis4d_cuda_ops \
     && . ~/.bashrc && conda activate cc3dt && pip install -v -e .
 
-RUN . ~/.bashrc && conda activate cc3dt && cd /root/cc3dt/vis4d && pip install vis4d
+RUN . ~/.bashrc && conda activate cc3dt && cd /root/cc3dt/vis4d && pip install vis4d && pip install motmetrics==1.1.3

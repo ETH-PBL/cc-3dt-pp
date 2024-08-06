@@ -65,7 +65,7 @@ def get_config() -> ExperimentConfig:
     ######################################################
     config = get_kf3d_cfg().ref_mode()
 
-    config.experiment_name = "cr3dt_kf3d_nusc"
+    config.experiment_name = "cc_3dt_pp_kf3d_nusc_test"
 
     ######################################################
     ##          Datasets with augmentations             ##
