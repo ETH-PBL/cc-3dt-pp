@@ -24,6 +24,7 @@ RUN /opt/conda/bin/conda create --name cc3dt python=3.9
 
 RUN . ~/.bashrc && conda activate cc3dt && pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cu118
 
-#RUN . ~/.bashrc && conda activate cc3dt && cd /root/cc3dt/vis4d_cuda_ops-main && pip install -v -e .
+RUN git clone https://github.com/SysCV/vis4d_cuda_ops.git && cd vis4d_cuda_ops \
+    && . ~/.bashrc && conda activate cc3dt && pip install -v -e .
 
 RUN . ~/.bashrc && conda activate cc3dt && cd /root/cc3dt/vis4d && pip install vis4d

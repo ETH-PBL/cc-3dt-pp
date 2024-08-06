@@ -70,7 +70,7 @@ def get_config() -> ExperimentConfig:
     ######################################################
     config.pure_detection = ""
 
-    data_root = "data/nuscenes/v1.0-mini"
+    data_root = "vis4d/data/nuscenes_mini"
     version = "v1.0-mini"
     test_split = "mini_val"
 
