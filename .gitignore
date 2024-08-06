@@ -89,3 +89,4 @@ lightning_logs/
 vis4d/data/nuscenes/
 vis4d/data/nuscenes_mini/
 vis4d/data/nuscenes_test/
+qd_models/
