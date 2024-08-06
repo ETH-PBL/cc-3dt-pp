@@ -77,7 +77,8 @@ log/
 /*.sh
 !eval_nusc.sh
 !main_cc3dtpp_track.sh
-!tutti_eval.sh
+!full_eval.sh
+!sec_docker.sh
 docs/source/api/*
 docs/source/tutorials/.ipynb_checkpoints/*
 wandb/
