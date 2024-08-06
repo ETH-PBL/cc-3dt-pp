@@ -38,7 +38,7 @@ fi
 source activate cc3dt
 
 # Execute the vis4d.pl test command and extract the output directory
-python -m vis4d.pl test --config "$CONFIG_FILE" --gpus 1 --ckpt vis4d/data/nuscenes_mini/cc_3dt_frcnn_r101_fpn_24e_nusc_f24f84.pt --config.pure_detection "$RADAR_CONFIG"
+python -m vis4d.pl test --config "$CONFIG_FILE" --gpus 1 --ckpt qd_models/cc_3dt_frcnn_r101_fpn_24e_nusc_f24f84.pt --config.pure_detection "$RADAR_CONFIG"
 
 # Get the newest directory
 cd "$WORK_DIR" || exit
