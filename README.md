@@ -30,9 +30,9 @@ Step 4. Start the docker container with the necessary flags using the provided u
 ./sec_docker.sh
 ```
 
-Step 5. Make sure you have gnerated a results json file for the nuScenes dataset. You can use the following command to generate the results json file and place it in the corresponding datasets folder.
+Step 5. Make sure you have gnerated a results json file for the nuScenes dataset. You can use the following command to generate the results json file and place it in the corresponding datasets folder. Or you can download our provided detection results [here](https://drive.google.com/drive/folders/1gHPZMUCDObDTHqbU_7Drw0CILx4pu_7i).
 
-Step 6. Inside the docker container, you can run the following command to evaluate the tracking performance on nuscense dataset.
+Step 6. Inside the docker container, you can run the following command to evaluate the tracking performance on nuscense dataset. This will mount the datasets into the container in the correct naming convention.
 ```shell script
 # For mini
 ./full_eval.sh mini vis4d/data/nuscenes_mini/<results json file>
